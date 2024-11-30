@@ -20,9 +20,9 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="flex fixed w-full justify-between items-center px-4 py-4 bg-gray-900">
+      <nav className="flex fixed w-full  justify-between items-center px-4 py-3 bg-gray-900">
         <Link>
-          <img className="h-16" src="/mylogo.png" alt="Logo" />
+          <img className="h-16 sm:h-20" src="/mylogo.png" alt="Logo" />
         </Link>
 
         <div className="flex gap-8">
