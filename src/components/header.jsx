@@ -1,21 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { Button } from "./ui/button";
 import {
   SignedIn,
   SignedOut,
   SignIn,
-  SignInButton,
+  // SignInButton,
   UserButton,
 } from "@clerk/clerk-react";
-import { PenBox } from "lucide-react";
-import { useState } from "react";
+import { BriefcaseBusiness, Heart, PenBox } from "lucide-react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const [showSignIn, setshowSignIn] = useState(false);
 
+  const [search, setSearch] = useSearchParams();
+  useEffect(() => {
+    if (search.get("sign-in")) {
+      setshowSignIn(true);
+    }
+  }, [search]);
+
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       setshowSignIn(false);
+      setSearch({});
     }
   };
   return (
@@ -44,7 +52,26 @@ const Header = () => {
                 Post a Job
               </Button>
             </Link>
-            <UserButton />
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10",
+                },
+              }}
+            >
+              <UserButton.MenuItems>
+                <UserButton.Link
+                  label="My Jobs"
+                  labelIcon={<BriefcaseBusiness size={15} />}
+                  href="/myjobs"
+                />
+                <UserButton.Link
+                  label="Saved Jobs"
+                  labelIcon={<Heart size={15} />}
+                  href="/savedjobs"
+                />
+              </UserButton.MenuItems>
+            </UserButton>
           </SignedIn>
         </div>
       </nav>
@@ -53,10 +80,7 @@ const Header = () => {
           className="flex items-center justify-center fixed inset-0 bg-black bg-opacity-80"
           onClick={handleOverlayClick}
         >
-          <SignIn
-            signUpForceRedirectUrl="/onboarding"
-            signUpFallbackRedirectUrl="/onboarding"
-          />
+          <SignIn forceRedirectUrl="onboarding" />
         </div>
       )}
     </>
