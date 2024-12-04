@@ -9,7 +9,17 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/?sign-in=true" />;
   }
 
-  //check Onboarding
+  //check if not Onboarded
+  if (
+    user !== undefined &&
+    !user?.unsafeMetadata?.role &&
+    pathname !== "/onboarding"
+  ) {
+    return <Navigate to="/onboarding" />;
+  }
+  if (user?.unsafeMetadata?.role === "candidate" && pathname === "/postjob") {
+    return <Navigate to="/jobs" />;
+  }
 
   return children;
 };
