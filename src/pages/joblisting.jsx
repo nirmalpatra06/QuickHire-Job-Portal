@@ -1,4 +1,5 @@
 import { getJobs } from "@/api/apijobs";
+import JobCard from "@/components/job-card";
 import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
@@ -37,24 +38,22 @@ const JobListingPage = () => {
 
       {loadingJobs && <BarLoader height={6} width={"100%"} color="#3d81ff" />}
       {loadingJobs == false && (
-        <div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
           {jobs.length ? (
             jobs.map((job) => {
-              return <span key={job.id}>{job.title}</span>;
+              return (
+                <JobCard
+                  key={job.id}
+                  job={job}
+                  savedInit={job?.saved?.length > 0}
+                />
+              );
             })
           ) : (
             <h2>No jobs</h2>
           )}
         </div>
       )}
-
-      {/* {jobs?.length ? (
-        jobs.map((job) => {
-          return <span key={job.id}>{job.title}</span>;
-        })
-      ) : (
-        <div>No Jobs found</div>
-      )} */}
     </div>
   );
 };
