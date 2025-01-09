@@ -30,7 +30,7 @@ const Header = () => {
   };
   return (
     <>
-      <nav className="flex fixed w-full  justify-between items-center px-4 py-3 bg-gray-900">
+      <nav className="flex fixed w-full  justify-between items-center px-4 py-3 bg-gray-900 z-10">
         <Link>
           <img className="h-16 sm:h-20" src="/mylogo.png" alt="Logo" />
         </Link>
