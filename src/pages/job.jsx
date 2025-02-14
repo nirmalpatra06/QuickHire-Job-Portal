@@ -1,4 +1,5 @@
 import { getSingleJob, updateHiringStatus } from "@/api/apijobs";
+import ApplyJobDrawer from "@/components/apply-job";
 import {
   Select,
   SelectContent,
@@ -75,7 +76,7 @@ const JobPage = () => {
         </div>
       </div>
       {/* Hiring Status */}
-      <div className="p-4">
+      <div className="px-4 py-2">
         {job?.recruiter_id === user?.id && (
           <Select onValueChange={handleHiringStatusChange}>
             <SelectTrigger
@@ -106,9 +107,17 @@ const JobPage = () => {
       </h2>
       <MDEditor.Markdown
         source={job?.requirements}
-        className="sm:text-lg bg-transparent px-4"
+        className="sm:text-lg bg-transparent px-4 pb-4"
       />
       {/* render applications */}
+      {job?.recruiter_id !== user?.id && (
+        <ApplyJobDrawer
+          job={job}
+          user={user}
+          fetchJob={fnJob}
+          applied={job?.applications?.find((ap) => ap.candidate_id === user.id)}
+        />
+      )}
     </div>
   );
 };
