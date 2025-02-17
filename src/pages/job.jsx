@@ -1,4 +1,5 @@
 import { getSingleJob, updateHiringStatus } from "@/api/apijobs";
+import ApplicationCard from "@/components/application-card";
 import ApplyJobDrawer from "@/components/apply-job";
 import {
   Select,
@@ -53,23 +54,23 @@ const JobPage = () => {
         <img src={job?.company?.logo_url} alt={job?.title} className="h-12" />
       </div>
       <div className="flex justify-between px-4">
-        <div className="flex gap-1">
-          <MapPinIcon />
+        <div className="flex gap-1 items-center">
+          <MapPinIcon size={18} />
           {job?.location}
         </div>
-        <div className="flex gap-1">
-          <Briefcase />
+        <div className="flex gap-1 items-center">
+          <Briefcase size={18} />
           {job?.applications?.length} Applicants
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {job?.isOpen ? (
             <>
-              <DoorOpen />
+              <DoorOpen size={18} />
               Open
             </>
           ) : (
             <>
-              <DoorClosed />
+              <DoorClosed size={18} />
               Closed
             </>
           )}
@@ -117,6 +118,17 @@ const JobPage = () => {
           fetchJob={fnJob}
           applied={job?.applications?.find((ap) => ap.candidate_id === user.id)}
         />
+      )}
+
+      {job?.applications?.length > 0 && job?.recruiter_id === user?.id && (
+        <div className="flex flex-col gap-2">
+          <h2 className="text-2xl sm:text-3xl font-bold px-4">Applications</h2>
+          {job?.applications.map((application) => {
+            return (
+              <ApplicationCard key={application.id} application={application} />
+            );
+          })}
+        </div>
       )}
     </div>
   );
