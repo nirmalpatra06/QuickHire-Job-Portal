@@ -129,16 +129,7 @@ const ApplyJobDrawer = ({ job, user, fetchJob, applied = false }) => {
           {errors.education && (
             <p className="text-red-500">{errors.education.message}</p>
           )}
-          {/* <RadioGroup defaultValue="option-one">
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Graduate" id="graduate" />
-              <Label htmlFor="graduate">Graduate</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <RadioGroupItem value="Post Graduate" id="post-graduate" />
-              <Label htmlFor="post-graduate">Post Graduate</Label>
-            </div>
-          </RadioGroup> */}
+
           <Input
             type="file"
             accept=" .pdf, .doc, .docx"

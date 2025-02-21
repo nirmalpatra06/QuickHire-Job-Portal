@@ -8,7 +8,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -28,9 +27,9 @@ const JobListingPage = () => {
     data: jobs,
     loading: loadingJobs,
   } = useFetch(getJobs, { location, company_id, searchQuery });
-  const { fn: fnCompanies, data: companies } = useFetch(getCompanies);
-
   // console.log(jobs);
+
+  const { fn: fnCompanies, data: companies } = useFetch(getCompanies);
 
   useEffect(() => {
     if (isLoaded) {
