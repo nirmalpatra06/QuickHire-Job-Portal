@@ -31,13 +31,12 @@ const Header = () => {
   return (
     <>
       <nav className="flex fixed w-full  justify-between items-center px-4 py-3 bg-gray-900 z-10">
-        <Link>
+        <Link to="/">
           <img className="h-16 sm:h-20" src="/mylogo.png" alt="Logo" />
         </Link>
 
         <div className="flex gap-8">
           <SignedOut>
-            {/* <SignInButton></SignInButton> */}
             <Button
               className="font-bold"
               variant="secondary"
@@ -84,7 +83,10 @@ const Header = () => {
           className="flex items-center justify-center fixed inset-0 bg-black bg-opacity-80 z-20"
           onClick={handleOverlayClick}
         >
-          <SignIn forceRedirectUrl="/onboarding" />
+          <SignIn
+            signUpForceRedirectUrl="/onboarding"
+            forceRedirectUrl="/onboarding"
+          />
         </div>
       )}
     </>
