@@ -84,7 +84,7 @@ const Header = () => {
           className="flex items-center justify-center fixed inset-0 bg-black bg-opacity-80 z-20"
           onClick={handleOverlayClick}
         >
-          <SignIn forceRedirectUrl="onboarding" />
+          <SignIn forceRedirectUrl="/onboarding" />
         </div>
       )}
     </>
