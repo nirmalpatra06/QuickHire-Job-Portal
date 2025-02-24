@@ -71,7 +71,7 @@ const ApplicationCard = ({ application, isCandidate = false }) => {
           </div>
           <div className="flex gap-2 items-center">
             <Boxes size={18} />
-            {application?.skills}
+            Skills : <p className="font-bold">{application?.skills}</p>
           </div>
         </div>
         <hr />

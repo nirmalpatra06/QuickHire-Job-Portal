@@ -9,9 +9,10 @@ import {
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
 import useFetch from "@/hooks/use-fetch";
-import { saveJob } from "@/api/apijobs";
+import { deleteJob, saveJob } from "@/api/apijobs";
 import { useUser } from "@clerk/clerk-react";
 import { useEffect, useState } from "react";
+import { BarLoader } from "react-spinners";
 
 const JobCard = ({
   job,
@@ -35,16 +36,37 @@ const JobCard = ({
     onJobSaved();
   };
 
+  const {
+    fn: fnDeleteJob,
+    loading: loadingDeleteJob,
+    data: deletedJob,
+  } = useFetch(deleteJob, {
+    job_id: job.id,
+  });
+  const handleDeleteJob = async () => {
+    await fnDeleteJob();
+    onJobSaved();
+  };
+
   useEffect(() => {
     if (savedJob !== undefined) setSaved(savedJob?.length > 0);
   }, [savedJob]);
 
   return (
     <Card className="flex flex-col justify-between">
+      {loadingDeleteJob && (
+        <BarLoader height={5} width={"100%"} color="#3d81ff" className="mt-2" />
+      )}
       <CardHeader>
         <CardTitle className="flex justify-between">
           {job.title}
-          {!isMyJob && <Trash2Icon size={20} className="cursor-pointer" />}
+          {isMyJob && (
+            <Trash2Icon
+              onClick={handleDeleteJob}
+              size={20}
+              className="cursor-pointer"
+            />
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent>

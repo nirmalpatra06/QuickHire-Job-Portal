@@ -15,7 +15,7 @@ import { Input } from "./ui/input";
 import useFetch from "@/hooks/use-fetch";
 import { addNewCompany } from "@/api/apiCompanies";
 import { BarLoader } from "react-spinners";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const schema = z.object({
   name: z.string().min(1, { message: "Company name is required" }),
@@ -29,6 +29,7 @@ const schema = z.object({
     ),
 });
 const AddCompanyDrawer = ({ fetchCompanies }) => {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const {
     register,
     handleSubmit,
@@ -51,12 +52,20 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
   };
 
   useEffect(() => {
-    if (dataAddCompany?.length > 0) fetchCompanies();
+    if (dataAddCompany?.length > 0) {
+      fetchCompanies();
+      setIsDrawerOpen(false);
+    }
   }, [loadingAddCompany]);
   return (
-    <Drawer>
+    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DrawerTrigger>
-        <Button type="button" size="sm" variant="secondary">
+        <Button
+          type="button"
+          size="sm"
+          variant="secondary"
+          onClick={() => setIsDrawerOpen(true)}
+        >
           Add Company
         </Button>
       </DrawerTrigger>
@@ -75,7 +84,6 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
           <Button
             className="w-40"
             type="button"
-            variant=""
             onClick={handleSubmit(onSubmit)}
           >
             Add

@@ -152,7 +152,7 @@ const PostJobPage = () => {
                 <SelectContent>
                   <SelectGroup>
                     {companies !== undefined &&
-                      companies.map(({ name, id }) => {
+                      companies?.map(({ name, id }) => {
                         return (
                           <SelectItem key={name} value={id}>
                             {name}

@@ -132,7 +132,7 @@ const JobListingPage = () => {
       {loadingJobs && <BarLoader height={6} width={"100%"} color="#3d81ff" />}
       {loadingJobs == false && (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 px-4">
-          {jobs.length ? (
+          {jobs?.length ? (
             jobs.map((job) => {
               return (
                 <JobCard
@@ -143,7 +143,7 @@ const JobListingPage = () => {
               );
             })
           ) : (
-            <h2>No jobs</h2>
+            <h2 className="text-center">No jobs</h2>
           )}
         </div>
       )}
